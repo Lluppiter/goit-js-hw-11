@@ -28,7 +28,10 @@ searchForm.addEventListener('submit', async e => {
       Notiflix.Notify.success(
         `Hooray! We found ${images.data.totalHits} images.`
       );
-      imageList.insertAdjacentHTML('beforeend', createMarkup(imagesArray));
+      imageList.insertAdjacentHTML(
+        'beforeend',
+        await createMarkup(imagesArray)
+      );
       let gallery = new SimpleLightbox('.gallery a', {
         captionsData: 'alt',
         captionPosition: 'bottom',
