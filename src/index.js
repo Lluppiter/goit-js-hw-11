@@ -9,6 +9,7 @@ const searchForm = document.querySelector('#search-form');
 const imageList = document.querySelector('.gallery');
 const loadButton = document.querySelector('.load');
 let inputData;
+let page;
 
 searchForm.addEventListener(
   'submit',
