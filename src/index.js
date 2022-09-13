@@ -12,10 +12,12 @@ let inputData;
 searchForm.addEventListener('submit', async e => {
   e.preventDefault();
   inputData = e.currentTarget.elements.searchQuery.value.trim();
+  console.log(inputData);
   loadButton.hidden = true;
   try {
     page = 1;
     const images = await fetchImg(inputData, page);
+    console.log(images);
     const imagesArray = images.data.hits;
     imageList.innerHTML = '';
     if (imagesArray.length === 0) {
