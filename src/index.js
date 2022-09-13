@@ -43,7 +43,7 @@ searchForm.addEventListener('submit', async e => {
       }
     }
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
   }
 });
 
