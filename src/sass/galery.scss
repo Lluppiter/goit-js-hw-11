@@ -3,6 +3,9 @@
   --animation-duration: 250ms;
 }
 .search-form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
   text-align: center;
   margin: 10px;
 }
@@ -41,4 +44,21 @@ img {
 .load-more {
   text-align: center;
   margin: 10px;
+}
+input {
+  text-align: center;
+  width: 200px;
+  height: 50px;
+  border-radius: 25px;
+  font-size: 25px;
+}
+button {
+  width: 100px;
+  height: 50px;
+  border-radius: 25px;
+}
+button:hover,
+button:focus {
+  cursor: pointer;
+  transform: scale(1.03);
 }
