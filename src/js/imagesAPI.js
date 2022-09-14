@@ -18,6 +18,10 @@ export class ImagesAPI {
         page: ImagesAPI.page,
       },
     };
-    return await axios.get(baseURL, config);
+    try {
+      return await axios.get(baseURL, config);
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 }
