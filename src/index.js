@@ -9,37 +9,40 @@ const imageList = document.querySelector('.gallery');
 const loadButton = document.querySelector('.load');
 let inputData;
 let page;
+let gallery;
 
 searchForm.addEventListener('submit', async e => {
   e.preventDefault();
   inputData = e.currentTarget.elements.searchQuery.value.trim();
   loadButton.hidden = true;
-  try {
-    page = 1;
-    const images = await fetchImg(inputData, page);
-    const imagesArray = images.data.hits;
-    imageList.innerHTML = '';
-    if (imagesArray.length === 0) {
-      Notiflix.Notify.warning(
-        '"Sorry, there are no images matching your search query. Please try again."'
-      );
-    } else {
-      Notiflix.Notify.success(
-        `Hooray! We found ${images.data.totalHits} images.`
-      );
-      imageList.insertAdjacentHTML('beforeend', createMarkup(imagesArray));
-      let gallery = new SimpleLightbox('.gallery a', {
-        captionsData: 'alt',
-        captionPosition: 'bottom',
-        captionDelay: 250,
-      });
-      gallery.on('show.simplelightbox');
-      if (images.data.hits.length === 40) {
-        loadButton.hidden = false;
+  if (inputData !== '') {
+    try {
+      page = 1;
+      const images = await fetchImg(inputData, page);
+      const imagesArray = images.data.hits;
+      imageList.innerHTML = '';
+      if (imagesArray.length === 0) {
+        Notiflix.Notify.warning(
+          '"Sorry, there are no images matching your search query. Please try again."'
+        );
+      } else {
+        Notiflix.Notify.success(
+          `Hooray! We found ${images.data.totalHits} images.`
+        );
+        imageList.insertAdjacentHTML('beforeend', createMarkup(imagesArray));
+        gallery = new SimpleLightbox('.gallery a', {
+          captionsData: 'alt',
+          captionPosition: 'bottom',
+          captionDelay: 250,
+        });
+        gallery.on('show.simplelightbox');
+        if (images.data.hits.length === 40) {
+          loadButton.hidden = false;
+        }
       }
+    } catch (error) {
+      console.log(error.message);
     }
-  } catch (error) {
-    console.log(error.message);
   }
 });
 
@@ -49,11 +52,6 @@ loadButton.addEventListener('click', async () => {
   const imagesArray = images.data.hits;
   imageList.insertAdjacentHTML('beforeend', createMarkup(imagesArray));
 
-  let gallery = new SimpleLightbox('.gallery a', {
-    captionsData: 'alt',
-    captionPosition: 'bottom',
-    captionDelay: 250,
-  });
   gallery.on('show.simplelightbox').refresh();
 
   const { height: cardHeight } = document
