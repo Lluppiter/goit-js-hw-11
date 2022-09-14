@@ -66,11 +66,4 @@ loadButton.addEventListener('click', async () => {
     top: cardHeight * 2,
     behavior: 'smooth',
   });
-
-  // if (images.data.hits.length < 40) {
-  //   loadButton.hidden = true;
-  //   Notiflix.Notify.info(
-  //     "We're sorry, but you've reached the end of search results."
-  //   );
-  // }
 });
