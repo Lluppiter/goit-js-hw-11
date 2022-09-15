@@ -30,25 +30,27 @@ async function onFormSubmit(e) {
   loadButton.hidden = true;
   ImagesAPI.page = 1;
   const query = e.currentTarget.elements.searchQuery.value.trim();
-  const images = await ImagesAPI.searchImg(query);
-  const imagesArray = images.data.hits;
-  imageList.innerHTML = '';
-  if (images.data.totalHits === 0) {
-    Notiflix.Notify.warning(
-      '"Sorry, there are no images matching your search query. Please try again."'
-    );
-  } else {
-    Notiflix.Notify.success(
-      `Hooray! We found ${images.data.totalHits} images.`
-    );
-    checkTotalHits(images, ImagesAPI.page);
+  if (query !== '') {
+    const images = await ImagesAPI.searchImg(query);
+    const imagesArray = images.data.hits;
+    imageList.innerHTML = '';
+    if (images.data.totalHits === 0) {
+      Notiflix.Notify.warning(
+        '"Sorry, there are no images matching your search query. Please try again."'
+      );
+    } else {
+      Notiflix.Notify.success(
+        `Hooray! We found ${images.data.totalHits} images.`
+      );
+      checkTotalHits(images, ImagesAPI.page);
+    }
+    imageList.insertAdjacentHTML('beforeend', createMarkup(imagesArray));
+    gallery = new SimpleLightbox('.gallery a', {
+      captionsData: 'alt',
+      captionPosition: 'bottom',
+      captionDelay: 250,
+    });
   }
-  imageList.insertAdjacentHTML('beforeend', createMarkup(imagesArray));
-  gallery = new SimpleLightbox('.gallery a', {
-    captionsData: 'alt',
-    captionPosition: 'bottom',
-    captionDelay: 250,
-  });
 }
 
 loadButton.addEventListener('click', async () => {
